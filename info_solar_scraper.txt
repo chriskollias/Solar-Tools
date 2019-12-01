@@ -1,0 +1,8 @@
+https://github.com/chriskollias/National-Solar-Radiation-Database-Scraper.git
+
+API Key
+
+iaPo35XpUtTy9vaDWJOGr1h5faigaVM1QAvfeei9
+
+https://developer.nrel.gov/api/alt-fuel-stations/v1.json?fuel_type=E85,ELEC&state=CA&limit=2&api_key=iaPo35XpUtTy9vaDWJOGr1h5faigaVM1QAvfeei9&format=JSON
+
