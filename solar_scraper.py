@@ -32,25 +32,27 @@ mailing_list = 'true'
 # Declare url string
 url = 'http://developer.nrel.gov/api/solar/nsrdb_psm3_download.csv?wkt=POINT({lon}%20{lat})&names={year}&leap_day={leap}&interval={interval}&utc={utc}&full_name={name}&email={email}&affiliation={affiliation}&mailing_list={mailing_list}&reason={reason}&api_key={api}&attributes={attr}'.format(year=year, lat=lat, lon=lon, leap=leap_year, interval=interval, utc=utc, name=your_name, email=your_email, mailing_list=mailing_list, affiliation=your_affiliation, reason=reason_for_use, api=api_key, attr=attributes)
 # Return just the first 2 lines to get metadata:
-df = pd.read_csv(url, nrows=5000)
+df = pd.read_csv(url, nrows=20000)
 # See metadata for specified properties, e.g., timezone and elevation
 #timezone, elevation = df['Local Time Zone'], df['Elevation']
 
-#print(df.head())
-#print(df)
-
-#df.to_csv('solar_info.csv')
-
-#print(df.groupby(['Month']).mean())
+df.to_csv('solar_info.csv')
 #print(df.columns)
 
 real_columns = df.iloc[1, :11]
 
 new_df = pd.DataFrame(columns=real_columns)
-#print(new_df.columns)
 
 temp_df = df.iloc[2:, :11]
 temp_df.columns = new_df.columns
 new_df = pd.concat([new_df, temp_df])
 
-new_df.to_csv('new_df.csv')
+#Change the column datatypes to float32
+new_df = new_df.astype('float32')
+
+
+#Calculate monthly averages and put them in new dataframe
+monthly_averages = new_df.groupby(['Month']).mean()
+cols = list(monthly_averages.columns)
+monthly_averages = monthly_averages[cols[:1] + cols[4:]]
+monthly_averages.to_csv('new_df.csv')
