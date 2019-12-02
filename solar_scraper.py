@@ -1,7 +1,5 @@
 import pandas as pd
-import numpy as np
-import sys, os
-from IPython.display import display
+#from IPython.display import display
 
 # Declare all variables as strings. Spaces must be replaced with '+', i.e., change 'John Smith' to 'John+Smith'.
 # Define the lat, long of the location and the year
@@ -34,8 +32,25 @@ mailing_list = 'true'
 # Declare url string
 url = 'http://developer.nrel.gov/api/solar/nsrdb_psm3_download.csv?wkt=POINT({lon}%20{lat})&names={year}&leap_day={leap}&interval={interval}&utc={utc}&full_name={name}&email={email}&affiliation={affiliation}&mailing_list={mailing_list}&reason={reason}&api_key={api}&attributes={attr}'.format(year=year, lat=lat, lon=lon, leap=leap_year, interval=interval, utc=utc, name=your_name, email=your_email, mailing_list=mailing_list, affiliation=your_affiliation, reason=reason_for_use, api=api_key, attr=attributes)
 # Return just the first 2 lines to get metadata:
-info = pd.read_csv(url, nrows=1)
+df = pd.read_csv(url, nrows=5000)
 # See metadata for specified properties, e.g., timezone and elevation
-timezone, elevation = info['Local Time Zone'], info['Elevation']
+#timezone, elevation = df['Local Time Zone'], df['Elevation']
 
-print(info.head())
+#print(df.head())
+#print(df)
+
+#df.to_csv('solar_info.csv')
+
+#print(df.groupby(['Month']).mean())
+#print(df.columns)
+
+real_columns = df.iloc[1, :11]
+
+new_df = pd.DataFrame(columns=real_columns)
+#print(new_df.columns)
+
+temp_df = df.iloc[2:, :11]
+temp_df.columns = new_df.columns
+new_df = pd.concat([new_df, temp_df])
+
+new_df.to_csv('new_df.csv')
