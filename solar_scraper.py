@@ -1,6 +1,7 @@
 import pandas as pd
-#from IPython.display import display
+import matplotlib.pyplot as plt
 
+'''
 # Declare all variables as strings. Spaces must be replaced with '+', i.e., change 'John Smith' to 'John+Smith'.
 # Define the lat, long of the location and the year
 lat, lon, year = 33.2164, -97.1292, 2010
@@ -37,6 +38,10 @@ df = pd.read_csv(url, nrows=20000)
 #timezone, elevation = df['Local Time Zone'], df['Elevation']
 
 df.to_csv('solar_info.csv')
+'''
+
+df = pd.read_csv('solar_info.csv')
+
 #print(df.columns)
 
 real_columns = df.iloc[1, :11]
@@ -50,9 +55,34 @@ new_df = pd.concat([new_df, temp_df])
 #Change the column datatypes to float32
 new_df = new_df.astype('float32')
 
+#print('new_df columns ', new_df.columns)
 
 #Calculate monthly averages and put them in new dataframe
 monthly_averages = new_df.groupby(['Month']).mean()
-cols = list(monthly_averages.columns)
-monthly_averages = monthly_averages[cols[:1] + cols[4:]]
-monthly_averages.to_csv('new_df.csv')
+#print(monthly_averages)
+
+monthly_averages.to_csv('help.csv')
+
+
+monthly_averages = pd.read_csv('help.csv')
+
+#print('monnthly avgs columns ', cols)
+#monthly_averages = monthly_averages[[cols[0]] + cols[4:]]
+#monthly_averages.to_csv('new_df.csv')
+
+#print(cols)
+#print(monthly_averages.columns)
+
+#['Year', 'GHI', 'DHI', 'DNI', 'Wind Speed', 'Temperature', 'Solar Zenith Angle']
+
+plt.xlabel('Month')
+plt.ylabel('Irradiance w/m^2')
+
+
+plt.plot(monthly_averages.Month, monthly_averages.GHI, label='GHI')
+plt.plot(monthly_averages.Month, monthly_averages.DHI, label='DHI')
+plt.plot(monthly_averages.Month, monthly_averages.DNI, label='DNI')
+
+plt.legend()
+plt.show()
+
