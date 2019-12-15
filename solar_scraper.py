@@ -40,6 +40,14 @@ df = pd.read_csv(url, nrows=20000)
 df.to_csv('solar_info.csv')
 '''
 
+class NREL_API():
+
+    def __init__(self):
+        pass
+
+    def get_monthly_averages(self, lat, long, year, attributes=['GHI', 'DHI', 'DNI']):
+
+
 df = pd.read_csv('solar_info.csv')
 
 #print(df.columns)

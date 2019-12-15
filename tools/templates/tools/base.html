@@ -2,25 +2,15 @@
 <head>
 <title>Solar Tools</title>
 </head>
+<body>
 <h1> testing te tools 234 </h1>
-
-<form action="" method="POST">
-{% csrf_token %}
-
-<label> Latitude </label>
-<input id="latitude" type="text" value=0>
-
-<label> Longitude </label>
-<input id="longitude" type="text" value=0>
-<br>
-<label> Year </label>
-<input id="year" type="date">
-<br>
-
-<button type="submit">Submit</button>
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Submit</button>
 
 </form>
 
-
+</body>
 </html>
 

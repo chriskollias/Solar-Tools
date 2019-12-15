@@ -4,17 +4,17 @@ from .forms import LatLongForm
 
 # Create your views here.
 def index(request):
-
-    if(request.method == 'POST'):
+    form = LatLongForm()
+    year = 2010 #default
+    if request.method == 'POST':
         form = LatLongForm(request.POST)
         print(form)
-
-        latitude = form.get('latitude')
-        longitude = form.get('longitude')
-        year = form.get('year')
+        if form.is_valid():
+            latitude = form.cleaned_data['latitude']
+            longitude = form.cleaned_data['longitude']
+            #year = form.cleaned_data['year']
 
         print(f'{latitude},{longitude} in {year}')
 
-    context = {'facts': 'not real'}
-    return render(request, 'tools/base.html', context)
+    return render(request, 'tools/base.html', {'form': form})
 
