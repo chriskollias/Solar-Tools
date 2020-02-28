@@ -13,7 +13,11 @@
     <input type="submit" value="Submit">
 </form>
 <p>
-    Filler
+    {% if obj %}
+        {% if obj.image.url %}
+            <img src="{{ obj.image.url }}">
+        {% endif %}
+    {% endif %}
 </p>
 
 {% endblock content %}
