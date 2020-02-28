@@ -79,7 +79,7 @@ class NREL_API():
         # Calculate monthly averages and put them in new dataframe
         monthly_averages = new_df.groupby(['Month']).mean()
 
-        #TODO: Figure out why we have to do this
+        # TODO: Figure out why we have to do this
         monthly_averages.to_csv('help.csv')
         monthly_averages = pd.read_csv('help.csv')
 
@@ -92,9 +92,7 @@ class NREL_API():
         plt.plot(monthly_averages.Month, monthly_averages.DNI, label='DNI')
 
         plt.legend()
-        #plt.show()
         filename = 'graph.png'
-        plt.savefig(filename, dpi=300)
         return filename
 
     def __init__(self):
