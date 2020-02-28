@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Solar Irradiance Graphing Tool</title>
+</head>
+<body>
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p}}
+
+    {% endblock content %}
+    <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
