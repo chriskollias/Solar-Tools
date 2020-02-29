@@ -56,12 +56,10 @@ class NREL_API():
             email=self.email, mailing_list=self.mailing_list, affiliation=self.affiliation, reason=self.reason_for_use,
             api=self.api_key, attr=attributes)
         print(url)
-        print("CHECKPOINT A")
         df = pd.read_csv(url, nrows=20000)
         timestr = time.strftime("%Y%m%d%H%M%S")
         filename = 'solar_info' + timestr + '.csv'
         df.to_csv(filename)
-        print("CHECKPOINT B")
         return filename
 
     def __display_csv_graph(self, df):
@@ -83,15 +81,22 @@ class NREL_API():
         monthly_averages.to_csv('help.csv')
         monthly_averages = pd.read_csv('help.csv')
 
-        plt.xlabel('Month')
-        plt.xticks(range(1, 13))
-        plt.ylabel('Irradiance W/m^2')
+        plt.figure(figsize=(3, 3))
 
-        plt.plot(monthly_averages.Month, monthly_averages.GHI, label='GHI')
-        plt.plot(monthly_averages.Month, monthly_averages.DHI, label='DHI')
-        plt.plot(monthly_averages.Month, monthly_averages.DNI, label='DNI')
+        plt.xlabel('Month', fontsize=8)
+        plt.xticks(range(1, 13), fontsize=8)
+        plt.ylabel('Irradiance W/m^2', fontsize=8)
 
-        plt.legend()
+        line1, = plt.plot(monthly_averages.Month, monthly_averages.GHI, label='GHI')
+        line2, = plt.plot(monthly_averages.Month, monthly_averages.DHI, label='DHI')
+        line3, = plt.plot(monthly_averages.Month, monthly_averages.DNI, label='DNI')
+
+        line1.set_label('GHI')
+        line2.set_label('DHI')
+        line3.set_label('DNI')
+
+        plt.legend(prop={'size': 6})
+        plt.tight_layout()
         filename = 'graph.png'
         return filename
 
